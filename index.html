@@ -436,12 +436,12 @@
             
             <!-- TABS DE CATEGORÍAS -->
             <div class="menu-tabs" id="menu-tabs">
-                <button class="tab-btn active" data-category="all">Todo</button>
-                <button class="tab-btn" data-category="Pizzas">Pizzas</button>
-                <button class="tab-btn" data-category="Hamburguesas">Hamburguesas</button>
-                <button class="tab-btn" data-category="Sandwiches">Sándwiches</button>
-                <button class="tab-btn" data-category="Empanadas">Empanadas</button>
-                <button class="tab-btn" data-category="Papas">Papas</button>
+                <button class="tab-btn active" data-category="all" id="tab-all">Todo</button>
+                <button class="tab-btn" data-category="Pizzas" id="tab-pizzas">Pizzas</button>
+                <button class="tab-btn" data-category="Hamburguesas" id="tab-hamburguesas">Hamburguesas</button>
+                <button class="tab-btn" data-category="Sandwiches" id="tab-sandwiches">Sándwiches</button>
+                <button class="tab-btn" data-category="Empanadas" id="tab-empanadas">Empanadas</button>
+                <button class="tab-btn" data-category="Papas" id="tab-papas">Papas</button>
             </div>
             
             <!-- CONTENEDOR DE PRODUCTOS -->
@@ -523,11 +523,64 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./js/partials.js"></script>
     <script>
-        // CARGAR PRODUCTOS DINÁMICAMENTE
+        // CARGAR PRODUCTOS DINÁMICAMENTE CON SOPORTE PARA PARÁMETROS URL
         document.addEventListener('DOMContentLoaded', function() {
             const productsContainer = document.getElementById('products-container');
             const tabButtons = document.querySelectorAll('.tab-btn');
             let allProducts = [];
+            
+            // Función para obtener parámetros de la URL
+            function getUrlParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+            
+            // Función para actualizar la URL sin recargar
+            function actualizarUrlCategoria(categoria) {
+                if (categoria === 'all') {
+                    // Remover parámetro de categoría
+                    const url = new URL(window.location);
+                    url.searchParams.delete('categoria');
+                    window.history.replaceState({}, '', url);
+                } else {
+                    // Agregar/actualizar parámetro
+                    const url = new URL(window.location);
+                    url.searchParams.set('categoria', categoria.toLowerCase());
+                    window.history.replaceState({}, '', url);
+                }
+            }
+            
+            // Función para activar una categoría desde URL
+            function activarCategoriaDesdeURL(categoriaParam) {
+                if (!categoriaParam) return false;
+                
+                const categoria = categoriaParam.toLowerCase();
+                let categoriaEncontrada = false;
+                
+                // Remover active de todos los tabs
+                tabButtons.forEach(b => b.classList.remove('active'));
+                
+                // Buscar el botón correspondiente
+                tabButtons.forEach(btn => {
+                    const btnCategoria = btn.getAttribute('data-category').toLowerCase();
+                    if (btnCategoria === categoria) {
+                        btn.classList.add('active');
+                        categoriaEncontrada = true;
+                    }
+                });
+                
+                if (!categoriaEncontrada) {
+                    // Si no se encuentra, activar "Todo"
+                    tabButtons.forEach(btn => {
+                        if (btn.getAttribute('data-category') === 'all') {
+                            btn.classList.add('active');
+                        }
+                    });
+                    return 'all';
+                }
+                
+                return categoriaParam;
+            }
             
             // Función para cargar productos
             function cargarProductos() {
@@ -535,7 +588,29 @@
                     .then(response => response.json())
                     .then(data => {
                         allProducts = data;
-                        mostrarProductos(allProducts);
+                        
+                        // Verificar si hay una categoría en la URL
+                        const categoriaURL = getUrlParam('categoria');
+                        
+                        if (categoriaURL) {
+                            // Activar la categoría desde la URL
+                            const categoriaActiva = activarCategoriaDesdeURL(categoriaURL);
+                            filtrarProductos(categoriaActiva || 'all');
+                            
+                            // Hacer scroll a la sección del menú
+                            setTimeout(() => {
+                                const menuSection = document.getElementById('menu-section');
+                                if (menuSection) {
+                                    window.scrollTo({
+                                        top: menuSection.offsetTop - 80,
+                                        behavior: 'smooth'
+                                    });
+                                }
+                            }, 300);
+                        } else {
+                            // Mostrar todos los productos por defecto
+                            mostrarProductos(allProducts);
+                        }
                     })
                     .catch(error => {
                         console.error('Error cargando productos:', error);
@@ -568,7 +643,7 @@
                     html += `
                         <div class="product-card" data-category="${producto.categoria}">
                             <img src="${imagen}" alt="${producto.titulo}" class="product-img" 
-                                 onerror="this.src='./assets/logo/logo_redondeado.png'">
+                                onerror="this.src='./assets/logo/logo_redondeado.png'">
                             <div class="product-info">
                                 <h3 class="product-title">${producto.titulo}</h3>
                                 <div class="product-price">$${producto.precio.toLocaleString('es-AR')}</div>
@@ -583,15 +658,17 @@
             
             // Filtrar productos por categoría
             function filtrarProductos(categoria) {
-                if (categoria === 'all') {
+                if (categoria === 'all' || categoria.toLowerCase() === 'all') {
                     mostrarProductos(allProducts);
                 } else {
-                    const filtrados = allProducts.filter(p => p.categoria === categoria);
+                    const filtrados = allProducts.filter(p => 
+                        p.categoria.toLowerCase() === categoria.toLowerCase()
+                    );
                     mostrarProductos(filtrados);
                 }
             }
             
-            // Eventos para los botones de 
+            // Eventos para los botones de tabs
             tabButtons.forEach(btn => {
                 btn.addEventListener('click', function() {
                     // Remover clase active de todos los botones
@@ -601,6 +678,8 @@
                     // Filtrar productos
                     const categoria = this.getAttribute('data-category');
                     filtrarProductos(categoria);
+                    // Actualizar URL
+                    actualizarUrlCategoria(categoria);
                 });
             });
             

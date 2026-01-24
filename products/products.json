@@ -121,7 +121,7 @@
   },
   {
     "id": 16,
-    "titulo": "Lomito Completo",
+    "titulo": "Lomito Completo <br> con papas",
     "precio": 15000,
     "categoria": "Sandwiches",
     "descripcion": null,
@@ -129,7 +129,7 @@
   },
   {
     "id": 17,
-    "titulo": "Sándwich Milanesa Simple",
+    "titulo": "Sándwich Milanesa Simple <br> con papas",
     "precio": 10000,
     "categoria": "Sandwiches",
     "descripcion": null,
@@ -137,7 +137,7 @@
   },
   {
     "id": 18,
-    "titulo": "Sándwich Milanesa Completa",
+    "titulo": "Sándwich Milanesa Completa <br> con papas",
     "precio": 12000,
     "categoria": "Sandwiches",
     "descripcion": null,
@@ -145,7 +145,7 @@
   },
   {
     "id": 19,
-    "titulo": "Promo Sándwich Milanesa (2x $22.000)",
+    "titulo": "Promo Sándwich Milanesa (2x $22.000) <br> con papas",
     "precio": 22000,
     "categoria": "Sandwiches",
     "descripcion": null,
@@ -153,7 +153,7 @@
   },
   {
     "id": 20,
-    "titulo": "Hamburlomo Simple",
+    "titulo": "Hamburlomo Simple <br> con papas",
     "precio": 14000,
     "categoria": "Sandwiches",
     "descripcion": null,
@@ -161,7 +161,7 @@
   },
   {
     "id": 21,
-    "titulo": "Hamburlomo Doble <br> con papas crujientes",
+    "titulo": "Hamburlomo Doble <br> con papas",
     "precio": 18000,
     "categoria": "Sandwiches",
     "descripcion": null,
@@ -177,7 +177,7 @@
   },
   {
     "id": 23,
-    "titulo": "Promo Lomazo con papas(2x $18.000)",
+    "titulo": "Promo Lomazo con papas(2x $18.000) <br> con papas",
     "precio": 18000,
     "categoria": "Sandwiches",
     "descripcion": null,
@@ -185,7 +185,7 @@
   },
   {
     "id": 24,
-    "titulo": "Media Lomopizza",
+    "titulo": "Media Lomopizza <br> con papas",
     "precio": 18000,
     "categoria": "Sandwiches",
     "descripcion": null,
@@ -193,7 +193,7 @@
   },
   {
     "id": 25,
-    "titulo": "Lomopizza Completo",
+    "titulo": "Lomopizza Completo <br> con papas",
     "precio": 30000,
     "categoria": "Sandwiches",
     "descripcion": null,
