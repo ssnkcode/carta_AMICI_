@@ -113,11 +113,19 @@
   },
   {
     "id": 15,
-    "titulo": "Promo Hamburguesas (2x)",
+    "titulo": "Hamburguesa Amici $6.000 <br> promo 2x $10.000",
+    "precio": 10000,
+    "categoria": "Hamburguesas",
+    "descripcion": "",
+    "image": "./assets/productos/burger-dos.webp"
+  },
+  {
+    "id": 15,
+    "titulo": "Promo 2x $18.000 conbinando cualquier tipo de hamburguesas <br>",
     "precio": 18000,
     "categoria": "Hamburguesas",
-    "descripcion": "Se puede combinar cualquier tipo de hamburguesa",
-    "image": "./assets/productos/burger-dos.webp"
+    "descripcion": "Podés elegir y combinar diferentes hamburguesas",
+    "image": ""
   },
   {
     "id": 16,
@@ -366,5 +374,13 @@
     "categoria": "Pizzas",
     "descripcion": null,
     "image": "./assets/productos/pizza-amici.webp"
+  },
+  {
+    "id": 47,
+    "titulo": "Sandwich de pollo (suprema) completo <br> con papas",
+    "precio": 10000,
+    "categoria": "Sandwiches",
+    "descripcion": null,
+    "image": "./assets/productos/suprema.webp"
   }
 ]
