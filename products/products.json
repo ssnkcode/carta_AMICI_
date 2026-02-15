@@ -382,5 +382,13 @@
     "categoria": "Sandwiches",
     "descripcion": null,
     "image": "./assets/productos/suprema.webp"
+  },
+  {
+    "id": 48,
+    "titulo": "Tortilla de papas",
+    "precio": 6000,
+    "categoria": "Tortilla",
+    "descripcion": null,
+    "image": "./assets/productos/tortilla-papa.webp"
   }
 ]
